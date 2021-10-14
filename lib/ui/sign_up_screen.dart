@@ -2,6 +2,7 @@ import 'package:counter/controllers/firebase_controllers.dart';
 import 'package:counter/main.dart';
 import 'package:counter/services/helper.dart';
 import 'package:counter/ui/login_screen.dart';
+import 'package:counter/ui/verify.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
@@ -179,7 +180,8 @@ class SignupScreen extends GetWidget<FirebaseController> {
                   ),
                   GestureDetector(
                     onTap: (){
-                      Get.offAll(LoginScreen());
+                   //   print(controller.)
+                      Get.offAll(VerificationScreen());
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

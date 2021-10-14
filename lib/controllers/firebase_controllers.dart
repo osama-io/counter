@@ -1,20 +1,20 @@
 import 'package:counter/ui/home_screen.dart';
 import 'package:counter/ui/login_screen.dart';
+import 'package:counter/ui/verify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:firebase_core/firebase_core.dart";
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:google_sign_in/google_sign_in.dart';
-
 import 'package:firebase_database/firebase_database.dart';
+import 'dart:async';
 
 class FirebaseController extends GetxController {
   //static FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth _auth = FirebaseAuth.instance;
-
-
+  Timer? timer;
+  User? user;
 
   final databaseReference = FirebaseDatabase.instance.reference();
 
@@ -24,41 +24,66 @@ class FirebaseController extends GetxController {
 
   Rxn<User> _firebaseUser = Rxn<User>();
 
-
   String? get userUid => _firebaseUser.value?.uid;
   String? get userEmail => _firebaseUser.value?.email;
   String? get userName => _firebaseUser.value?.displayName;
   String? get imageUrl => _firebaseUser.value?.photoURL;
 
+
+
   @override
   void onInit() {
     _firebaseUser.bindStream(_auth.authStateChanges());
+    user = _auth.currentUser;
+    //user!.sendEmailVerification();
+    timer = Timer.periodic(
+      Duration(seconds: 5),
+          (timer) {
+        checkEmailVerification();
+      },
+    );
   }
+  void checkEmailVerification() async {
+    user = _auth.currentUser;
+    await user!.reload();
+    user!.sendEmailVerification();
+    if (user!.emailVerified) {
+      timer!.cancel();
+      Get.to(HomeScreen());
+    }
 
-
-
-  // function to createuser, login and sign out user
-
-  void signUp(String name, String email, String password,
+  }
+  // function to createUser, login and sign out user
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    timer!.cancel();
+    super.dispose();
+  }
+  void signUp(
+      String name,
+      String email,
+      String password,
       ) async {
     CollectionReference reference =
-        FirebaseFirestore.instance.collection("users");
+    FirebaseFirestore.instance.collection("users");
 
     Map<String, String> userdata = {
       "Name": name,
       "Email": email,
-
     };
 
     await _auth
         .createUserWithEmailAndPassword(email: email, password: password)
-        .then((value)  => Get.offAll(HomeScreen())).
-    catchError(
-      (onError) => Get.snackbar(
+        .then((value) => Get.offAll(VerificationScreen()))
+        .catchError(
+          (onError) => Get.snackbar(
           "Error while creating account ", onError.message,
           duration: 1.seconds),
     );
   }
+
+
 
   // login function
   void login(String email, String password) async {
@@ -66,11 +91,11 @@ class FirebaseController extends GetxController {
         .signInWithEmailAndPassword(email: email, password: password)
         .then(
           (value) => Get.offAll(
-            HomeScreen(),
-          ),
-        )
+        HomeScreen(),
+      ),
+    )
         .catchError((onError) {
-      String message = 'Couldn\'t sign up';
+      String message = 'Could not sign up';
       switch (onError.code) {
         case 'wrong-password':
           message = 'Wrong password!';
@@ -101,9 +126,9 @@ class FirebaseController extends GetxController {
   void signOut() async {
     await _auth.signOut().then(
           (value) => Get.offAll(
-            LoginScreen(),
-          ),
-        );
+        LoginScreen(),
+      ),
+    );
   }
 
   // forget password function
@@ -144,14 +169,14 @@ class FirebaseController extends GetxController {
         .signIn(); //calling signIn method // this will open a dialog pop where user can select his email id to signin to the app
 
     final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
+    await googleUser!.authentication;
 
     final AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken, //create a login credential
         accessToken: googleAuth.accessToken);
 
     final User user = (await _auth.signInWithCredential(credential).then(
-        (value) async => await Get.offAll(
+            (value) async => await Get.offAll(
             HomeScreen()))); //if credential success, then using _auth signed in user data will be stored
   }
 
@@ -160,64 +185,55 @@ class FirebaseController extends GetxController {
     await googleSignIn.signOut().then((value) => Get.offAll(LoginScreen()));
   }
 
-  void createData(){
-    databaseReference.child("flutterDevsTeam1").set({
-      'name': 'Deepak Nishad',
-      'description': 'Team Lead'
-    });
-    databaseReference.child("flutterDevsTeam2").set({
-      'name': 'Yashwant Kumar',
-      'description': 'Senior Software Engineer'
-    });
-    databaseReference.child("flutterDevsTeam3").set({
-      'name': 'Akshay',
-      'description': 'Software Engineer'
-    });
-    databaseReference.child("flutterDevsTeam4").set({
-      'name': 'Aditya',
-      'description': 'Software Engineer'
-    });
-    databaseReference.child("flutterDevsTeam5").set({
-      'name': 'Shaiq',
-      'description': 'Associate Software Engineer'
-    });
-    databaseReference.child("flutterDevsTeam6").set({
-      'name': 'Mohit',
-      'description': 'Associate Software Engineer'
-    });
-    databaseReference.child("flutterDevsTeam7").set({
-      'name': 'Naveen',
-      'description': 'Associate Software Engineer'
-    });
+  void createData() {
+    databaseReference
+        .child("flutterDevsTeam1")
+        .set({'name': 'Deepak Nishad', 'description': 'Team Lead'});
+    databaseReference.child("flutterDevsTeam2").set(
+        {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'});
+    databaseReference
+        .child("flutterDevsTeam3")
+        .set({'name': 'Akshay', 'description': 'Software Engineer'});
+    databaseReference
+        .child("flutterDevsTeam4")
+        .set({'name': 'Aditya', 'description': 'Software Engineer'});
+    databaseReference
+        .child("flutterDevsTeam5")
+        .set({'name': 'Shaiq', 'description': 'Associate Software Engineer'});
+    databaseReference
+        .child("flutterDevsTeam6")
+        .set({'name': 'Mohit', 'description': 'Associate Software Engineer'});
+    databaseReference
+        .child("flutterDevsTeam7")
+        .set({'name': 'Naveen', 'description': 'Associate Software Engineer'});
   }
-  void readData(){
+
+  void readData() {
     databaseReference.child("S401").once().then((DataSnapshot snapshot) {
       print(' ${snapshot.value}');
-
     });
   }
 
-  void updateData(){
-    databaseReference.child('flutterDevsTeam1').update({
-      'description': 'CEO'
-    });
-    databaseReference.child('flutterDevsTeam2').update({
-      'description': 'Team Lead'
-    });
-    databaseReference.child('flutterDevsTeam3').update({
-      'description': 'Senior Software Engineer'
-    });
+  void updateData() {
+    databaseReference.child('flutterDevsTeam1').update({'description': 'CEO'});
+    databaseReference
+        .child('flutterDevsTeam2')
+        .update({'description': 'Team Lead'});
+    databaseReference
+        .child('flutterDevsTeam3')
+        .update({'description': 'Senior Software Engineer'});
   }
-  void deleteData(){
+
+  void deleteData() {
     databaseReference.child('flutterDevsTeam1').remove();
     databaseReference.child('flutterDevsTeam2').remove();
     databaseReference.child('flutterDevsTeam3').remove();
   }
 
-  // static Future<String?> firebaseCreateNewUser(User user) async =>
-  //     await firestore
-  //         .collection('user')
-  //         .doc(user.userID)
-  //         .set(user.toJson())
-  //         .then((value) => null, onError: (e) => e);
+// static Future<String?> firebaseCreateNewUser(User user) async =>
+//     await firestore
+//         .collection('user')
+//         .doc(user.userID)
+//         .set(user.toJson())
+//         .then((value) => null, onError: (e) => e);
 }
