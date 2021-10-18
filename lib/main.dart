@@ -1,5 +1,5 @@
 import 'package:counter/is_signed_in.dart';
-import 'package:counter/ui/home_screen.dart';
+import 'package:counter/ui/bottom_nav_bar.dart';
 import 'package:counter/ui/login_screen.dart';
 import 'package:counter/ui/sign_up_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
               duration: 2000,
               splash: "assets/logo1.png",
               splashIconSize: 2000,
-              nextScreen: IsSignedIn(),
+              nextScreen: BottomNav(),
               splashTransition: SplashTransition.scaleTransition,
               pageTransitionType: PageTransitionType.fade,
               backgroundColor: Colors.white),
