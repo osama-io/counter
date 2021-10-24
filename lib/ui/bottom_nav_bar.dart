@@ -4,6 +4,8 @@ import 'package:counter/ui/home_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
+import 'action_ui.dart';
+
 class BottomNav extends StatefulWidget {
   const BottomNav({Key? key}) : super(key: key);
 
@@ -31,9 +33,7 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-
-
-      appBar: AppBar(
+        appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
           leading: Icon(
@@ -56,13 +56,9 @@ class _BottomNavState extends State<BottomNav> {
             padding: EdgeInsets.zero,
             children: <Widget>[
               UserAccountsDrawerHeader(
-
-
                 accountName: Text("Xyz"),
                 accountEmail: Text("xyz@gmail.com"),
-                decoration: BoxDecoration(
-                  color: Colors.pink
-                ),
+                decoration: BoxDecoration(color: Colors.pink),
                 currentAccountPicture: CircleAvatar(
                   backgroundColor: Colors.orange,
                   child: Text(
@@ -72,19 +68,22 @@ class _BottomNavState extends State<BottomNav> {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.home), title: Text("Home"),
+                leading: Icon(Icons.home),
+                title: Text("Home"),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                leading: Icon(Icons.settings), title: Text("Settings"),
+                leading: Icon(Icons.settings),
+                title: Text("Settings"),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                leading: Icon(Icons.contacts), title: Text("Contact Us"),
+                leading: Icon(Icons.contacts),
+                title: Text("Contact Us"),
                 onTap: () {
                   Navigator.pop(context);
                 },
@@ -101,11 +100,9 @@ class _BottomNavState extends State<BottomNav> {
             },
             children: <Widget>[
               HomeScreen(
-               // color: Colors.white,
-              ),
-              Container(
-                color: Colors.red,
-              ),
+                  // color: Colors.white,
+                  ),
+              ActionsScreen(),
               Container(
                 color: Colors.green,
               ),
@@ -131,18 +128,18 @@ class _BottomNavState extends State<BottomNav> {
             ),
             BottomNavyBarItem(
               activeColor: Colors.pink,
-              title: Text('Love'),
-              icon: Icon(Icons.apps),
+              title: Text('Interactions'),
+              icon: Icon(Icons.integration_instructions_outlined),
             ),
             BottomNavyBarItem(
               activeColor: Colors.pink,
               title: Text('Moments'),
-              icon: Icon(Icons.chat_bubble),
+              icon: Icon(Icons.date_range),
             ),
             BottomNavyBarItem(
               activeColor: Colors.pink,
               title: Text('Notification'),
-              icon: Icon(Icons.settings),
+              icon: Icon(Icons.notifications),
             ),
           ],
         ),
