@@ -1,4 +1,4 @@
-import 'package:counter/ui/home_screen.dart';
+import 'package:counter/ui/bottom_nav_bar.dart';
 import 'package:counter/ui/login_screen.dart';
 
 import 'package:get/get.dart';
@@ -11,7 +11,7 @@ class IsSignedIn extends GetWidget<FirebaseController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Get.find<FirebaseController>().userEmail != null
-          ? HomeScreen()
+          ? BottomNav()
           : LoginScreen();
     });
   }

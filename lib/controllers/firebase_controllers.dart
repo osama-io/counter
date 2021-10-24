@@ -1,4 +1,4 @@
-import 'package:counter/ui/home_screen.dart';
+import 'package:counter/ui/bottom_nav_bar.dart';
 import 'package:counter/ui/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:firebase_core/firebase_core.dart";
@@ -52,7 +52,7 @@ class FirebaseController extends GetxController {
 
     await _auth
         .createUserWithEmailAndPassword(email: email, password: password)
-        .then((value)  => Get.offAll(HomeScreen())).
+        .then((value)  => Get.offAll(BottomNav())).
     catchError(
       (onError) => Get.snackbar(
           "Error while creating account ", onError.message,
@@ -66,7 +66,7 @@ class FirebaseController extends GetxController {
         .signInWithEmailAndPassword(email: email, password: password)
         .then(
           (value) => Get.offAll(
-            HomeScreen(),
+            BottomNav(),
           ),
         )
         .catchError((onError) {
@@ -152,7 +152,7 @@ class FirebaseController extends GetxController {
 
     final User user = (await _auth.signInWithCredential(credential).then(
         (value) async => await Get.offAll(
-            HomeScreen()))); //if credential success, then using _auth signed in user data will be stored
+            BottomNav()))); //if credential success, then using _auth signed in user data will be stored
   }
 
   //sign out with google function
