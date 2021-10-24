@@ -8,25 +8,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      ///app bar
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: Icon(
-          Icons.menu,
-          color: Colors.pink,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.notifications,
-              color: Colors.pink,
-            ),
-          ),
-        ],
-      ),
-
       ///body
       body: ListView(
         children: [
@@ -34,7 +15,7 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: Container(
-              //color: Colors.pink,
+                //color: Colors.pink,
                 height: 35.h,
                 child: Column(
                   children: [
@@ -64,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ],
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                                    BorderRadius.all(Radius.circular(20))),
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(15, 3, 15, 3),
                               child: Text(
@@ -83,91 +64,80 @@ class HomeScreen extends StatelessWidget {
                     Expanded(
                       flex: 6,
                       child: Container(
-                        child: Row(
+                        child: Column(
                           children: [
                             /// left logo
                             Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Container(
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Image.asset(
-                                        "assets/cake.png",
-                                        //color: Colors.pink,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                      color: Color(0xffF9B8BE),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 5,
-                                          blurRadius: 7,
-                                          offset: Offset(
-                                            0,
-                                            3,
-                                          ), // changes position of shadow
-                                        ),
-                                      ],
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20))),
-                                  //color: Colors.green,
+                              flex: 3,
+                              child: Center(
+                                child: Image.asset(
+                                  "assets/cake.png",
+                                  //color: Colors.pink,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                              flex: 3,
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child:  CircleAvatar(
+                                      child: Image.asset(
+                                "assets/pic1.jpeg",
+                                //color: Colors.pink,
+                                fit: BoxFit.contain,
+                              ),
+                                        radius: 50,
+                                        backgroundImage: AssetImage('assets/pic1.jpeg',
+                                        ),
+                                      )
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                     child: Image.asset(
+                                        "assets/pic1.jpeg",
+                                        //color: Colors.pink,
+                                        fit: BoxFit.contain,
+                                      ),
+
+                                      //  margin: EdgeInsets.all(100.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        shape: BoxShape.circle,
+                                      ),
+
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
 
-                            /// for text and button
+                            /// for text
                             Expanded(
+                              flex: 2,
                               child: Container(
                                 //color: Colors.red,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      //crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "34",
-                                          style: TextStyle(
-                                              fontSize: 50.sp,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          "   more",
-                                          style: TextStyle(
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                    // SizedBox(
-                                    //   height: 5.h,
-                                    // ),
                                     Text(
-                                      "days until",
+                                      "we've been together for ",
                                       style: TextStyle(
-                                          fontSize: 20.sp,
+                                          fontSize: 15.sp,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      "her birthday",
+                                      "2 Years 91 Days",
                                       style: TextStyle(
-                                          fontSize: 12.sp,
+                                          fontSize: 30.sp,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ],
                                 ),
                                 //  color: Colors.red,
                               ),
-                              flex: 3,
                             ),
                           ],
                         ),
@@ -176,27 +146,23 @@ class HomeScreen extends StatelessWidget {
                             gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              stops: [0.6,0.4],
+                              stops: [0.6, 0.4],
                               colors: [
                                 Colors.pink,
-
                                 Colors.white,
-
                               ],
                             ),
-
                             boxShadow: [
-
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.5),
                                 spreadRadius: 5,
                                 blurRadius: 7,
                                 offset:
-                                Offset(0, 3), // changes position of shadow
+                                    Offset(0, 3), // changes position of shadow
                               ),
                             ],
                             borderRadius:
-                            BorderRadius.all(Radius.circular(20))),
+                                BorderRadius.all(Radius.circular(20))),
 
                         height: 25.h,
                         //width: 10.h,
@@ -499,9 +465,6 @@ class HomeScreen extends StatelessWidget {
                   ],
                 )),
           ),
-
-
-
 
           // Padding(
           //   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),

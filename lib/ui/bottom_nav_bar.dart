@@ -31,6 +31,67 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+
+
+      appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          leading: Icon(
+            Icons.menu,
+            color: Colors.pink,
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.notifications,
+                color: Colors.pink,
+              ),
+            ),
+          ],
+        ),
+        drawer: new Drawer(
+          child: ListView(
+            // Important: Remove any padding from the ListView.
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              UserAccountsDrawerHeader(
+
+
+                accountName: Text("Xyz"),
+                accountEmail: Text("xyz@gmail.com"),
+                decoration: BoxDecoration(
+                  color: Colors.pink
+                ),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.orange,
+                  child: Text(
+                    "A",
+                    style: TextStyle(fontSize: 40.0),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.home), title: Text("Home"),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.settings), title: Text("Settings"),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.contacts), title: Text("Contact Us"),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
         // bottomNavigationBar: ,
         body: SizedBox.expand(
           child: PageView(
